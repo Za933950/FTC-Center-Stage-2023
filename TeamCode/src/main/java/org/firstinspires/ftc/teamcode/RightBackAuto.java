@@ -99,7 +99,7 @@ public class RightBackAuto extends LinearOpMode {
         dropperServo.setPosition(.3);
         sleep(2000);
 
-        moveRight(1500, 0.25);
+        moveRight(1500, 0.25); //parking
 
 
     }
