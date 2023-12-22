@@ -17,20 +17,20 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
         Mat output = new Mat();
 
         Point topLeft = new Point(0, 0);
-        Point bottomleft = new Point(639, 359);
-        Point topRight = new Point(639, 0);
-        Point bottomRight = new Point(1279, 359);
+        Point bottomleft = new Point(159, 119);
+        Point topRight = new Point(159, 0);
+        Point bottomRight = new Point(319, 119);
 
         Mat leftTopHalf = new Mat();
         Mat rightTopHalf = new Mat();
         Scalar avgRight;
         Scalar avgLeft;
         Telemetry telemetry;
-        int location;
+        int location = 0;
         double redleftVal;
         double redRightVal;
 
-        public Scalar lowerBound = new Scalar(150, 0, 0);
+        public Scalar lowerBound = new Scalar(93, 0, 0); //change some boundries based on lighting
         public Scalar upperBound = new Scalar(255, 80, 80);
 
         public RedConeDetectionPipeline(Telemetry telemetry) {
@@ -39,7 +39,9 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
         @Override
         public Mat processFrame(Mat input) {
-
+            telemetry.addData("rows",input.rows());
+            telemetry.addData("Cols", input.cols());
+            telemetry.update();
             Imgproc.cvtColor(input, input, Imgproc.COLOR_RGBA2RGB);
             Imgproc.blur(input, input, new Size(10,10));
             Core.inRange(input, lowerBound, upperBound, mask);
@@ -60,11 +62,11 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
             avgRight = Core.mean(rightTopHalf);
             redleftVal = avgLeft.val[0];
             redRightVal = avgRight.val[0];
-            if (redleftVal > 15) {
+            if (redleftVal > 15) { //update thresh hold based on lighting a competition
                 location = 0;
                 telemetry.addData("Left",0);
                 //left
-            } else if (redRightVal > 9.5) {
+            } else if (redRightVal > 8) { //update thresh hold based on lighting a competition
                 location = 1;
                 telemetry.addData("Center",1);
                 //center
@@ -78,19 +80,21 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
             telemetry.addData("location", location);
             telemetry.update();
 
+
+
             return output;
 
 
         }
 
         public int getLocation() {
-            redleftVal = avgLeft.val[0];
+             redleftVal = avgLeft.val[0];
             redRightVal = avgRight.val[0];
             if (redleftVal > 15) {
                 location = 0;
                 telemetry.addData("Left",0);
                 //left
-            } else if (redRightVal > 9.5) {
+            } else if (redRightVal > 8) {
                 location = 1;
                 telemetry.addData("Center",1);
                 //center

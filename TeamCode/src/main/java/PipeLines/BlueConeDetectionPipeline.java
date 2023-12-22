@@ -17,9 +17,9 @@ public class BlueConeDetectionPipeline extends OpenCvPipeline {
     Mat output = new Mat();
 
     Point topLeft = new Point(0, 0);
-    Point bottomleft = new Point(639, 359);
-    Point topRight = new Point(639, 0);
-    Point bottomRight = new Point(1279, 359);
+    Point bottomleft = new Point(159, 119);
+    Point topRight = new Point(159, 0);
+    Point bottomRight = new Point(319, 119);
 
     Mat leftTopHalf = new Mat();
     Mat rightTopHalf = new Mat();
@@ -30,7 +30,7 @@ public class BlueConeDetectionPipeline extends OpenCvPipeline {
     double blueleftVal;
     double blueRightVal;
 
-    public Scalar lowerBound = new Scalar(0, 0, 85);
+    public Scalar lowerBound = new Scalar(0, 0, 85); //change some boundries based on lighting
     public Scalar upperBound = new Scalar(60, 60, 255);
 
     public BlueConeDetectionPipeline(Telemetry telemetry) {
@@ -60,11 +60,11 @@ public class BlueConeDetectionPipeline extends OpenCvPipeline {
         avgRight = Core.mean(rightTopHalf);
         blueleftVal = avgLeft.val[2];
         blueRightVal = avgRight.val[2];
-        if (blueleftVal > 5) {
+        if (blueleftVal > 5) { //update thresh hold based on lighting a competition
             location = 0;
             telemetry.addData("Left",0);
             //left
-        } else if (blueRightVal > 2) {
+        } else if (blueRightVal > 2) { //update thresh hold based on lighting a competition
             location = 1;
             telemetry.addData("Center",1);
             //center
