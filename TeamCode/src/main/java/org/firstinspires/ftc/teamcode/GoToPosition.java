@@ -19,6 +19,27 @@ public class GoToPosition {
         goToX(x, frontLeft, backLeft, frontRight, backRight, odometry);
         goToY(y, frontLeft, backLeft, frontRight, backRight, odometry);
     }*/
+    public static void goToPosition(double x, double y, Odometry odometry, DcMotor leftFront, DcMotor leftBack, DcMotor rightFront, DcMotor rightBack) {
+        double currentX = odometry.getXCoordinate();
+        double currentY = odometry.getYCoordinate();
+        double currentHeading = odometry.getHeading();
+        double changeX = x - currentX;
+        double changeY = y - currentY;
+        double angle = Math.atan2(changeY, changeX);
+        rotate(angle, odometry, leftFront, leftBack, rightFront, rightBack);
+        goToY(y, leftFront, leftBack, rightFront, rightBack, odometry);
+    }
+
+    public static void rotate(double goalAngle, Odometry odometry, DcMotor leftFront, DcMotor leftBack, DcMotor rightFront, DcMotor rightBack) {
+        double currentHeading = odometry.getHeading();
+        while (goalAngle != currentHeading) {
+            currentHeading = odometry.getHeading(); // Get heading and check how close we are
+                leftFront.setPower(1);
+                leftBack.setPower(1);
+                rightFront.setPower(-1);
+                rightBack.setPower(-1);  // Set powers to rotate
+        }
+    }
 
     public static double[] goToX(double x, Odometry odometry) {
         /**
@@ -29,6 +50,8 @@ public class GoToPosition {
          * BACKRIGHT
          * Distance
          */
+
+
 
 
         double p = 15; //Stopping distance
