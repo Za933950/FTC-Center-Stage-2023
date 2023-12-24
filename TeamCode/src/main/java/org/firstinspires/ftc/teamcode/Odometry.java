@@ -8,7 +8,7 @@ public class Odometry {
     private DcMotor vl;
     private DcMotor vr;
     private DcMotor h;
-    private double vRadius = 4.38;
+    private double vRadius = 7.5;
     private double xCoord = 0;
     private double yCoord = 0;
     private double heading = 0;
@@ -17,7 +17,7 @@ public class Odometry {
     private double hStart = 0;
     private double encoderTicksPerInch = 1141.94659527;
     private double circumference = 2 * vRadius * Math.PI;
-    private double HCircumference = 6.25 * 2 * Math.PI; // Remeasure
+    private double HCircumference = 5.375 * 2 * Math.PI; // Remeasure
 
     public Odometry(DcMotor vl, DcMotor vr, DcMotor h) {
         this.vl = vl;
