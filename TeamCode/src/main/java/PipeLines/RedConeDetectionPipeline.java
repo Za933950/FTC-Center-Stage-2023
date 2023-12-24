@@ -26,7 +26,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
         Scalar avgRight;
         Scalar avgLeft;
         Telemetry telemetry;
-        int location = 0;
+        int location;
         double redleftVal;
         double redRightVal;
 
@@ -41,6 +41,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
         public Mat processFrame(Mat input) {
             telemetry.addData("rows",input.rows());
             telemetry.addData("Cols", input.cols());
+            telemetry.addData("location",location);
             telemetry.update();
             Imgproc.cvtColor(input, input, Imgproc.COLOR_RGBA2RGB);
             Imgproc.blur(input, input, new Size(10,10));
@@ -62,17 +63,20 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
             avgRight = Core.mean(rightTopHalf);
             redleftVal = avgLeft.val[0];
             redRightVal = avgRight.val[0];
-            if (redleftVal > 15) { //update thresh hold based on lighting a competition
-                location = 0;
+            if (redleftVal > 15) { //update thresh hold based on lighting at competition
+                location =   0;
                 telemetry.addData("Left",0);
+                telemetry.update();
                 //left
-            } else if (redRightVal > 8) { //update thresh hold based on lighting a competition
+            } else if (redRightVal > 8) { //update thresh hold based on lighting at competition
                 location = 1;
                 telemetry.addData("Center",1);
+                telemetry.update();
                 //center
             } else {
                 location = 2;
                 telemetry.addData("Right",2);
+                telemetry.update();
             }
 
             telemetry.addData("avgLeft", avgLeft);
@@ -83,26 +87,12 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 
             return output;
-
-
         }
 
+
         public int getLocation() {
-             redleftVal = avgLeft.val[0];
-            redRightVal = avgRight.val[0];
-            if (redleftVal > 15) {
-                location = 0;
-                telemetry.addData("Left",0);
-                //left
-            } else if (redRightVal > 8) {
-                location = 1;
-                telemetry.addData("Center",1);
-                //center
-            } else {
-                location = 2;
-                telemetry.addData("Right",2);
-            }
 
             return location;
         }
+
     }

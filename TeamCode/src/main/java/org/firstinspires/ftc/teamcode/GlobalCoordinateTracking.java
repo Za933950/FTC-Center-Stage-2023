@@ -10,13 +10,13 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import java.io.BufferedInputStream;
 
-@Autonomous(name="Odometry.java Test", group="Robot")
+@Autonomous(name="Odometry Test", group="Robot")
 
 public class GlobalCoordinateTracking extends LinearOpMode {
     private DcMotor verticalLeft, verticalRight, horizontal;
-    String verticalLeftEncoderName = "leftBack";
-    String verticalRightEncoderName = "rightBack";
-    String horizontalEncoderName = "leftFront";
+    String verticalLeftEncoderName = "backLeft";
+    String verticalRightEncoderName = "backRight";
+    String horizontalEncoderName = "frontLeft";
 
     public void runOpMode() {
 
@@ -25,7 +25,6 @@ public class GlobalCoordinateTracking extends LinearOpMode {
         horizontal = hardwareMap.dcMotor.get(horizontalEncoderName);
 
         verticalRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        horizontal.setDirection(DcMotorSimple.Direction.REVERSE);
 
         Odometry odometry = new Odometry(verticalLeft, verticalRight, horizontal);
 
