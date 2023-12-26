@@ -20,7 +20,7 @@ public class GlobalCoordinateTracking extends LinearOpMode {
 
     public void runOpMode() {
 
-         verticalLeft = hardwareMap.dcMotor.get( verticalLeftEncoderName);
+        verticalLeft = hardwareMap.dcMotor.get( verticalLeftEncoderName);
         verticalRight = hardwareMap.dcMotor.get(verticalRightEncoderName);
         horizontal = hardwareMap.dcMotor.get(horizontalEncoderName);
 
