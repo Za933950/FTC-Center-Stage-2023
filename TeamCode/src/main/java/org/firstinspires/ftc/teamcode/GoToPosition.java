@@ -9,9 +9,9 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 import java.io.BufferedInputStream;
-@Disabled
-@Autonomous(name="GoToPosition", group="Robot")
 
 public class GoToPosition {
 
@@ -40,7 +40,7 @@ public class GoToPosition {
                 rightBack.setPower(-1);  // Set powers to rotate
         }
     }*/
-    public static double DIAMETER = 1.25;
+    public static double DIAMETER = 15;
 
     public static double[] goToX(double x, Odometry odometry) {
         /**
@@ -97,44 +97,59 @@ public class GoToPosition {
         }
     }
 
-    public static void goToPosition(double x, double y, double heading, double stoppingDistance, Odometry odometry, DcMotor frontLeft, DcMotor backLeft, DcMotor frontRight, DcMotor backRight) {
+    public static void goToPosition(double x, double y, double heading, double stoppingDistance, Odometry odometry, DcMotor frontLeft, DcMotor backLeft, DcMotor frontRight, DcMotor backRight, Telemetry t, double power) {
         //stop
         double currentX = odometry.getXCoordinate();
         double currentY = odometry.getYCoordinate();
+        double currentHeading = odometry.getHeading();
+
         double differenceInX = x - currentX;
         double differenceInY = y - currentY;
-        double h = Math.pow(Math.pow(differenceInX, 2) + Math.pow(differenceInY, 2), 1 / 2);
-        while (h > .05) {
+        double differenceInHeading = heading - currentHeading;
 
+        double outputTheta = differenceInHeading / 360.0 * DIAMETER * Math.PI;
+        double h = Math.pow(Math.pow(differenceInX, 2) + Math.pow(differenceInY, 2), 1.0 / 2);
+        double totalDistance = h + outputTheta;
+        while (totalDistance > 2) {
+            t.addData("TD", totalDistance);
             //get starting position
             currentX = odometry.getXCoordinate();
             currentY = odometry.getYCoordinate();
-            double currentHeading = odometry.getHeading();
+            currentHeading = odometry.getHeading();
 
             //find the difference in the x and y
             differenceInX = x - currentX;
             differenceInY = y - currentY;
-            double differenceInHeading = heading - currentHeading;
+            differenceInHeading = heading - currentHeading;
 
             //find the h by using the pythagorean theorem
             //differenceInX squared + differenceInY squared = h squared
-            h = Math.pow(Math.pow(differenceInX, 2) + Math.pow(differenceInY, 2), 1 / 2);
+            h = Math.pow(Math.pow(differenceInX, 2) + Math.pow(differenceInY, 2), 1.0 / 2);
+            t.addData("difInX",differenceInX);
+            t.addData("difInY", differenceInY);
+            totalDistance = h + outputTheta;
 
             //find theta val
-            double thetaP = Math.atan2(differenceInY, differenceInX);
-            double theta = heading + thetaP;
+            double thetaP = Math.toDegrees(Math.atan2(differenceInX, differenceInY));
+            double theta = -currentHeading + thetaP;
+            t.addData("thetaP", thetaP);
+            t.addData("heading", heading);
 
             //get the outputs
-            double outputX = Math.cos(Math.toRadians(theta)) * h;
-            double outputY = Math.sin(Math.toRadians(theta)) * h;
-            double outputTheta = differenceInHeading / 360 * DIAMETER * Math.PI;
+            double outputX = Math.sin(Math.toRadians(theta)) * h;
+            double outputY = Math.cos(Math.toRadians(theta)) * h;
+            outputTheta = differenceInHeading / 360.0 * DIAMETER * Math.PI;
 
             //calculate the motor powers
-            double theNumberYouNeedInTheMatrix = Math.pow(2, 1 / 2) / 2;
+            double theNumberYouNeedInTheMatrix = Math.pow(2, 1.0 / 2) / 2;
             double leftFrontPower = outputX + (outputY * theNumberYouNeedInTheMatrix) + outputTheta;
             double leftBackPower = -outputX + (outputY * theNumberYouNeedInTheMatrix) + outputTheta;
             double rightFrontPower = -outputX + (outputY * theNumberYouNeedInTheMatrix) + (-outputTheta);
             double rightBackPower = outputX + (outputY * theNumberYouNeedInTheMatrix) + (-outputTheta);
+            t.addData("oX", outputX);
+            t.addData("oY", outputY);
+            t.addData("oT", outputTheta);
+
 
             //Create a list of the motor powers
             double[] motorOutputs = new double[]{leftFrontPower, leftBackPower, rightFrontPower, rightBackPower};
@@ -154,18 +169,19 @@ public class GoToPosition {
                 motorOutputs[i] = normalizedMotorPower;
             }
 
+
             //slowdown
             for (int i = 0; i < 4; i++) {
-                motorOutputs[i] = motorOutputs[i] * Math.min(h / stoppingDistance, 1);
+                motorOutputs[i] = motorOutputs[i] * Math.min(totalDistance / stoppingDistance, 1);
             }
-
+            t.addData("h", h);
             //set the motor powers
-            frontLeft.setPower(motorOutputs[0]);
-            backLeft.setPower(motorOutputs[1]);
-            frontRight.setPower(motorOutputs[2]);
-            backRight.setPower(motorOutputs[3]);
+            frontLeft.setPower(motorOutputs[0] * power);
+            backLeft.setPower(motorOutputs[1] * power);
+            frontRight.setPower(motorOutputs[2] * power);
+            backRight.setPower(motorOutputs[3] * power);
 
-
+            t.update();
 
 
         }

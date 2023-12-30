@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-public class Odometry {
+public class Odometry implements Runnable {
 
     private DcMotor vl;
     private DcMotor vr;
@@ -87,5 +87,14 @@ public class Odometry {
         return heading;
     }
 
+    public void run() {
+        while(true) {
+            try {
+                this.updatePosition();
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+    }
 
 }

@@ -2,23 +2,26 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
+import org.firstinspires.ftc.teamcode.GoToPosition.*;
 
-import java.io.BufferedInputStream;
 
-@Autonomous(name="Odometry Test", group="Robot")
+@Autonomous(name="GTP Test", group="Robot")
 
-public class GlobalCoordinateTracking extends LinearOpMode {
-    private DcMotor verticalLeft, verticalRight, horizontal;
+public class GoToPositionTest extends LinearOpMode {
+    private DcMotor verticalLeft, verticalRight, horizontal, leftBack, leftFront,rightFront, rightBack;
+
     String verticalLeftEncoderName = "frontLeft";
     String verticalRightEncoderName = "frontRight";
     String horizontalEncoderName = "intakeMotor";
 
     public void runOpMode() {
+
+        leftFront = hardwareMap.dcMotor.get("frontLeft");
+        leftBack = hardwareMap.dcMotor.get("backLeft");
+        rightFront = hardwareMap.dcMotor.get("frontRight");
+        rightBack = hardwareMap.dcMotor.get("backRight");
 
         verticalLeft = hardwareMap.dcMotor.get(verticalLeftEncoderName);
         verticalRight = hardwareMap.dcMotor.get(verticalRightEncoderName);
@@ -26,22 +29,15 @@ public class GlobalCoordinateTracking extends LinearOpMode {
 
         horizontal.setDirection(DcMotorSimple.Direction.REVERSE);
         verticalRight.setDirection(DcMotorSimple.Direction.REVERSE);
-
+        rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
         Odometry odometry = new Odometry(verticalLeft, verticalRight, horizontal);
+        Thread positionUpdate = new Thread(odometry);
+        positionUpdate.start();
 
         waitForStart();
 
-        while (opModeIsActive()) {  
-
-            odometry.updatePosition();
-
-            telemetry.addData("XCoord", odometry.getXCoordinate());
-            telemetry.addData("YCoord", odometry.getYCoordinate());
-            telemetry.addData("Heading", odometry.getHeading());
-            telemetry.addData("Leftencoder", verticalLeft.getCurrentPosition());
-            telemetry.addData("Rightencoder", verticalRight.getCurrentPosition());
-            telemetry.addData("Middle1encoder", horizontal.getCurrentPosition());
-            telemetry.update();
+        if (opModeIsActive()) {
+            GoToPosition.goToPosition(24, 48,90,10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, 0.8);
 
         }
     }

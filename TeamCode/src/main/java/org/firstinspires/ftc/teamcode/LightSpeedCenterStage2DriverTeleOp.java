@@ -45,7 +45,7 @@ public class LightSpeedCenterStage2DriverTeleOp extends LinearOpMode {
     private Servo dropperServo, planeServo, rotateServo;
     private static double leftJoystickX, leftJoystickY, rightJoystickX, rightJoystickY;
     private static double leftFrontPower, leftBackPower, rightBackPower, rightFrontPower;
-    private double ENCODER_TICKS_PER_ROTATION = 1120;
+    private double ENCODER_TICKS_PER_ROTATION = 1120 * (2.0/3);
     private double driveFactor = 1;
     private boolean isGoingAllTheWayUp = false;
 
@@ -130,7 +130,7 @@ public class LightSpeedCenterStage2DriverTeleOp extends LinearOpMode {
 
 
             if (gamepad2.a) {
-                slideMotor.setPower(0.6);
+                slideMotor.setPower(1);
                 slideMotor.setTargetPosition(convertDegreesToEncoderTicks(1150));
                 if (gamepad2.dpad_up){
                     slideMotor.setTargetPosition(convertDegreesToEncoderTicks(1700));

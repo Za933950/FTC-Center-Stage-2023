@@ -14,16 +14,17 @@ import java.io.BufferedInputStream;
 
 public class GlobalCoordinateTracking extends LinearOpMode {
     private DcMotor verticalLeft, verticalRight, horizontal;
-    String verticalLeftEncoderName = "backLeft";
-    String verticalRightEncoderName = "backRight";
-    String horizontalEncoderName = "frontLeft";
+    String verticalLeftEncoderName = "frontLeft";
+    String verticalRightEncoderName = "frontRight";
+    String horizontalEncoderName = "intakeMotor";
 
     public void runOpMode() {
 
-        verticalLeft = hardwareMap.dcMotor.get( verticalLeftEncoderName);
+        verticalLeft = hardwareMap.dcMotor.get(verticalLeftEncoderName);
         verticalRight = hardwareMap.dcMotor.get(verticalRightEncoderName);
         horizontal = hardwareMap.dcMotor.get(horizontalEncoderName);
 
+        horizontal.setDirection(DcMotorSimple.Direction.REVERSE);
         verticalRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
         Odometry odometry = new Odometry(verticalLeft, verticalRight, horizontal);
