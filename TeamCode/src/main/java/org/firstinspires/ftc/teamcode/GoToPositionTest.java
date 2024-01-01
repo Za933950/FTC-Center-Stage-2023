@@ -38,6 +38,7 @@ public class GoToPositionTest extends LinearOpMode {
 
         if (opModeIsActive()) {
             GoToPosition.goToPosition(24, 48,90,10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, 0.8);
+            GoToPosition.goToPosition(10,24,90, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, 0.8);
 
         }
     }
