@@ -87,28 +87,12 @@ public class BlueConeDetectionPipeline extends OpenCvPipeline {
 
     }
 
-    public int getLocation(int theLocation) {
-        blueleftVal = avgLeft.val[2];
-        blueRightVal = avgRight.val[2];
-        if (blueleftVal > 5) {
-            location = 0;
-            telemetry.addData("Left", 0);
-            //left
-        } else if (blueRightVal > 2) {
-            location = 1;
-            telemetry.addData("Center", 1);
-            //center
-        } else {
-            location = 2;
-            telemetry.addData("Right", 2);
-            //right
-        }
-        location = theLocation;
+    public int getLocation() {
 
         return location;
-
     }
 }
+
 
 
 
