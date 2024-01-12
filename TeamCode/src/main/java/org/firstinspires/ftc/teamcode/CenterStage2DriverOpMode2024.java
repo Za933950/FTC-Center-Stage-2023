@@ -36,18 +36,17 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import java.util.Arrays;
 
-@TeleOp(name="CenterStage Two Driver OpMode", group="Linear Opmode")
-public class LightSpeedCenterStage2DriverTeleOp extends LinearOpMode {
+@TeleOp(name="CenterStage2DriverOpMode2024", group="Linear Opmode")
+public class CenterStage2DriverOpMode2024 extends LinearOpMode {
 
     // Declare Motors, Servos, etc.
     private static DcMotor leftFront, leftBack, rightFront, rightBack, slideMotor, intakeMotor;
 
-    private Servo dropperServo, planeServo, rotateServo;
+    private Servo dropperServo, planeServo, rotateServo, hangServo;
     private static double leftJoystickX, leftJoystickY, rightJoystickX, rightJoystickY;
     private static double leftFrontPower, leftBackPower, rightBackPower, rightFrontPower;
     private double ENCODER_TICKS_PER_ROTATION = 1120 * (2.0/3);
     private double driveFactor = 1;
-    private boolean isGoingAllTheWayUp = false;
 
 
 
@@ -64,6 +63,7 @@ public class LightSpeedCenterStage2DriverTeleOp extends LinearOpMode {
         dropperServo = hardwareMap.servo.get("dropper");
         planeServo = hardwareMap.servo.get("plane");
         rotateServo = hardwareMap.servo.get("rotate");
+        hangServo = hardwareMap.servo.get("hang");
 
         slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slideMotor.setTargetPosition(convertDegreesToEncoderTicks(0));
@@ -90,6 +90,12 @@ public class LightSpeedCenterStage2DriverTeleOp extends LinearOpMode {
             leftBackPower = -leftJoystickY - leftJoystickX + rightJoystickX;
             rightBackPower = leftJoystickY - leftJoystickX + rightJoystickX;
 
+            telemetry.addData("Joystick LSX", leftJoystickX);
+            telemetry.addData("Joystick LSY", leftJoystickY);
+            telemetry.addData("Joystick RSY", rightJoystickY);
+            telemetry.addData("Joystick RSX", rightJoystickY);
+            telemetry.update();
+
             double[] wheelPower = {Math.abs(leftFrontPower), Math.abs(leftBackPower), Math.abs(rightFrontPower), Math.abs(rightBackPower)};
             Arrays.sort(wheelPower);
             double largestInput = wheelPower[3];
@@ -99,7 +105,8 @@ public class LightSpeedCenterStage2DriverTeleOp extends LinearOpMode {
                 rightFrontPower /= largestInput;
                 rightBackPower /= largestInput;
             }
-
+            // Gamepad1
+            //Drive Controls
             if (gamepad1.right_bumper) {
                 leftFront.setPower(leftFrontPower / 2);
                 leftBack.setPower(leftBackPower / 2);
@@ -115,98 +122,95 @@ public class LightSpeedCenterStage2DriverTeleOp extends LinearOpMode {
                 leftBack.setPower(leftBackPower);
                 rightFront.setPower(rightFrontPower);
                 rightBack.setPower(rightBackPower);
+            }
+            //Hanging
+            /*if (gamepad1.b) {
+                hangServo.setPosition(0.5);
+            }*/
+            //Intake
+            if (gamepad1.right_trigger > 0.5) {
+                intakeMotor.setPower(1);
 
+            } else if (gamepad1.left_trigger > 0.5) {
+                intakeMotor.setPower(-1);
+            } else {
+                intakeMotor.setPower(0);
             }
-            if (gamepad2.left_trigger>.5){
+
+            //Plane
+            if (gamepad1.a) {
+                planeServo.setPosition(.6);
+                //Put slides up a little
+            }
+         /*   if (gamepad1.dpad_up) {
+                slideMotor.setTargetPosition(slideMotor.getCurrentPosition() + convertDegreesToEncoderTicks(20));
+            }
+            //Put slides down a little
+            if (gamepad1.dpad_down) {
+                slideMotor.setTargetPosition(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(20));
+            }
+
+          */
+            // open grabber
+            if (gamepad1.x) {
+                dropperServo.setPosition(0);
+            }
+            //
+            //  if (gamepad1.left_bumper){
+            //        rotateServo.setPosition(rotateServo.getPosition()+.005);]
+
+
+            //End gamepad1
+
+
+            //Gamepad 2
+            //twitch
+            if (gamepad2.left_trigger > .5) {
                 rotateServo.setPosition(.07);
+                dropperServo.setPosition(0);
             }
-            if (gamepad2.left_bumper){
-                rotateServo.setPosition(rotateServo.getPosition()+.005);
-            }
+
 
             // zero out the slides position
-            if (gamepad1.b) {
-                slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            }
-
+            // if (gamepad1.b) {
+            //  slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);}
 
 
             if (gamepad2.a) {
                 slideMotor.setPower(1);
                 slideMotor.setTargetPosition(convertDegreesToEncoderTicks(1150));
-                if (gamepad2.dpad_up){
-                    slideMotor.setTargetPosition(convertDegreesToEncoderTicks(1700));
-                    // sleep(1000);
-                    isGoingAllTheWayUp = true;
-                    // rotateServo.setPosition(.135);
-                }
             }
 
-            if (isGoingAllTheWayUp && slideMotor.getCurrentPosition() >= convertDegreesToEncoderTicks(1700)) {
-                rotateServo.setPosition(.135);
-                isGoingAllTheWayUp = false;
+
+            if (slideMotor.getCurrentPosition() >= convertDegreesToEncoderTicks(500)) {
+                rotateServo.setPosition(.125);
+            } else {
+                rotateServo.setPosition(0);
             }
 
             if (gamepad2.b) {
                 slideMotor.setPower(0.6);
                 slideMotor.setTargetPosition(35);
-                rotateServo.setPosition(0);
-                dropperServo.setPosition(.3);
-
-            }
-            if (gamepad1.right_trigger > 0.5) {
-                intakeMotor.setPower(1);
-
-            } else {
-                intakeMotor.setPower(0);
-                intakeMotor.setTargetPosition(0);
-            }
-
-
-            if (gamepad2.x){
-                dropperServo.setPosition(0);
-                if (gamepad2.dpad_down){
-                    dropperServo.setPosition(0);
-                }
-            }
-            if (gamepad2.y){
                 dropperServo.setPosition(.3);
             }
-            if (gamepad1.left_trigger>.5){
-                leftFront.setPower(.1);
-                leftBack.setPower(.1);
-                rightFront.setPower(-.1);
-                rightBack.setPower(-.1);
 
-            }
-            if(gamepad1.y){
-                planeServo.setPosition(.6);
-            }
-            if (gamepad2.dpad_right){
-                slideMotor.setTargetPosition(slideMotor.getCurrentPosition()+convertDegreesToEncoderTicks(20));
-            }
-            if (gamepad2.dpad_left){
-                slideMotor.setTargetPosition(slideMotor.getCurrentPosition()-convertDegreesToEncoderTicks(20));
-            }
-            if (gamepad1.dpad_up){
-                slideMotor.setTargetPosition(slideMotor.getCurrentPosition()+convertDegreesToEncoderTicks(20));
-            }
-            if (gamepad1.dpad_down){
-                slideMotor.setTargetPosition(slideMotor.getCurrentPosition()-convertDegreesToEncoderTicks(20));
+            if (gamepad2.x) {
+                slideMotor.setPower(1);
+                slideMotor.setTargetPosition(convertDegreesToEncoderTicks(1700));
             }
 
-            telemetry.addData("currentMotorPosition", slideMotor.getCurrentPosition());
-            telemetry.addData("E", dropperServo.getPosition());
-            telemetry.update();
-
-
-
-
-
-
-
-
+       /* if (gamepad2.dpad_right) {
+            slideMotor.setTargetPosition(slideMotor.getCurrentPosition() + convertDegreesToEncoderTicks(20));
         }
+        if (gamepad2.dpad_left) {
+            slideMotor.setTargetPosition(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(20));
+        }
+        */
+
+        telemetry.addData("currentMotorPosition", slideMotor.getCurrentPosition());
+        telemetry.addData("E", dropperServo.getPosition());
+        telemetry.update();
+    }
 
     }
 
