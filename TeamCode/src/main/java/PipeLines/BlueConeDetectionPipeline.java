@@ -1,5 +1,7 @@
 package PipeLines;
 
+import org.firstinspires.ftc.teamcode.GoToPositionTest;
+import org.firstinspires.ftc.teamcode.Odometry;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
@@ -35,13 +37,14 @@ public class BlueConeDetectionPipeline extends OpenCvPipeline {
 
     public BlueConeDetectionPipeline(Telemetry telemetry) {
         this.telemetry = telemetry;
+
     }
 
     @Override
     public Mat processFrame(Mat input) {
 
         Imgproc.cvtColor(input, input, Imgproc.COLOR_RGBA2RGB);
-        Imgproc.blur(input, input, new Size(10,10));
+        Imgproc.blur(input, input, new Size(10, 10));
         Core.inRange(input, lowerBound, upperBound, mask);
         output.release();
         Core.bitwise_and(input, input, output, mask);
@@ -62,15 +65,15 @@ public class BlueConeDetectionPipeline extends OpenCvPipeline {
         blueRightVal = avgRight.val[2];
         if (blueleftVal > 5) { //update thresh hold based on lighting a competition
             location = 0;
-            telemetry.addData("Left",0);
+            telemetry.addData("Left", 0);
             //left
         } else if (blueRightVal > 2) { //update thresh hold based on lighting a competition
             location = 1;
-            telemetry.addData("Center",1);
+            telemetry.addData("Center", 1);
             //center
         } else {
             location = 2;
-            telemetry.addData("Right",2);
+            telemetry.addData("Right", 2);
             //right
         }
 
@@ -85,23 +88,11 @@ public class BlueConeDetectionPipeline extends OpenCvPipeline {
     }
 
     public int getLocation() {
-        blueleftVal = avgLeft.val[2];
-        blueRightVal = avgRight.val[2];
-        if (blueleftVal > 5) {
-            location = 0;
-            telemetry.addData("Left",0);
-            //left
-        } else if (blueRightVal > 2) {
-            location = 1;
-            telemetry.addData("Center",1);
-            //center
-        } else {
-            location = 2;
-            telemetry.addData("Right",2);
-            //right
-        }
 
         return location;
     }
 }
+
+
+
 

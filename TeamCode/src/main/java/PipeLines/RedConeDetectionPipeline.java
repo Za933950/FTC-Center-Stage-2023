@@ -48,15 +48,6 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
             Core.inRange(input, lowerBound, upperBound, mask);
             output.release();
             Core.bitwise_and(input, input, output, mask);
-            Imgproc.rectangle(
-                    output,
-                    new Point(
-                            0,
-                            input.rows() / 2),
-                    new Point(
-                            input.cols(),
-                            input.rows()),
-                    new Scalar(0, 0, 0), Imgproc.FILLED);
             leftTopHalf = output.submat(new Rect(topLeft, bottomleft));
             rightTopHalf = output.submat(new Rect(topRight, bottomRight));
             avgLeft = Core.mean(leftTopHalf);

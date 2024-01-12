@@ -17,10 +17,10 @@ import PipeLines.BlueConeDetectionPipeline;
 import PipeLines.RedConeDetectionPipeline;
 
 
-@Autonomous(name="Test Test", group="Robot")
+@Autonomous(name="BlueClose", group="Robot")
 @Config
 
-public class GoToPositionTest extends LinearOpMode {
+public class BlueClose extends LinearOpMode {
     private DcMotor verticalLeft, verticalRight, horizontal, leftBack, leftFront,rightFront, rightBack;
 
     private Servo autoDrop;
@@ -31,12 +31,12 @@ public class GoToPositionTest extends LinearOpMode {
     String horizontalEncoderName = "intakeMotor";
 
     OpenCvWebcam webcam;
-    public static double XPOSITION_1 = 0;
-    public static double YPOSITION_1 = 0;
+    public static double XPOSITION_1 = -5;
+    public static double YPOSITION_1 = -27;
     public static double HEADING_1 = 0;
-    public static double STOP = 10;
-    public static double XPOSITION_2 = 0;
-    public static double YPOSITION_2 = 0;
+    public static double STOP = 15;
+    public static double XPOSITION_2 = -5;
+    public static double YPOSITION_2 = -27;
     public static double HEADING_2 = 0;
     public static double XPOSITION_3 = -5;
     public static double YPOSITION_3 = -27;
@@ -68,12 +68,12 @@ public class GoToPositionTest extends LinearOpMode {
 
         positionUpdate.start();
 
-        /*
+
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
 
-        RedConeDetectionPipeline samplePipeline = new RedConeDetectionPipeline(telemetry);
+        BlueConeDetectionPipeline samplePipeline = new BlueConeDetectionPipeline(telemetry);
         webcam.setPipeline(samplePipeline);
 
 
@@ -106,7 +106,7 @@ public class GoToPositionTest extends LinearOpMode {
                 telemetry.addData("Right", 2);
             }
             telemetry.update();
-        }*/
+        }
 
         autoDrop.setPosition(0.625);
 
@@ -115,18 +115,30 @@ public class GoToPositionTest extends LinearOpMode {
 
 
         if (opModeIsActive()) {
+                //Left
+                if (location == 0){
+                    GoToPosition.goToPosition(4, -27, 0, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
+                    autoDrop.setPosition(.4);
+                    GoToPosition.goToPosition(0, -17, 0, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
+                    GoToPosition.goToPosition(37.25, -20, -90, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
+                }
+                //Center
+                if (location == 1){
+                    GoToPosition.goToPosition(-4, -30, 0, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
+                    autoDrop.setPosition(.4);
+                    GoToPosition.goToPosition(0, -17, 0, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
+                    GoToPosition.goToPosition(37.25, -27, -90, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
 
-                /*GoToPosition.goToPosition(0, -46,0,15, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .8);
-                GoToPosition.goToPosition(0, -46,190,15, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .8);*/
-            GoToPosition.goToPosition(XPOSITION_1, YPOSITION_1, HEADING_1, STOP, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
-            GoToPosition.goToPosition(XPOSITION_2, YPOSITION_2, HEADING_2, STOP, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
-            autoDrop.setPosition(.4);
-            GoToPosition.goToPosition(XPOSITION_3, YPOSITION_3, HEADING_3, STOP, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
+                }
+                //Right
+                if (location == 2){
 
+                    GoToPosition.goToPosition(0, -29, 90, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
+                    GoToPosition.goToPosition(-4.6, -29, 90, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
+                    autoDrop.setPosition(.4);
+                    GoToPosition.goToPosition(37.25, -31, -90, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
 
-            /*GoToPosition.goToPosition(24, 48,90,15, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, 1);
-            GoToPosition.goToPosition(0,0,0, 15, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, 1);
-            sleep(5000);*/
+                }
 
         }
 

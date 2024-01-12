@@ -109,8 +109,8 @@ public class GoToPosition {
 
         double outputTheta = differenceInHeading / 360.0 * DIAMETER * Math.PI;
         double h = Math.pow(Math.pow(differenceInX, 2) + Math.pow(differenceInY, 2), 1.0 / 2);
-        double totalDistance = h + outputTheta;
-        while (totalDistance > 2) {
+        double totalDistance = h + Math.abs(outputTheta);
+        while (totalDistance > .7) {
             t.addData("TD", totalDistance);
             //get starting position
             currentX = odometry.getXCoordinate();
@@ -127,7 +127,7 @@ public class GoToPosition {
             h = Math.pow(Math.pow(differenceInX, 2) + Math.pow(differenceInY, 2), 1.0 / 2);
             t.addData("difInX",differenceInX);
             t.addData("difInY", differenceInY);
-            totalDistance = h + outputTheta;
+            totalDistance = h + Math.abs(outputTheta);
 
             //find theta val
             double thetaP = Math.toDegrees(Math.atan2(differenceInX, differenceInY));
@@ -172,7 +172,7 @@ public class GoToPosition {
 
             //slowdown
             for (int i = 0; i < 4; i++) {
-                motorOutputs[i] = motorOutputs[i] * Math.min(totalDistance / stoppingDistance, 1);
+                motorOutputs[i] = motorOutputs[i] * Math.min(Math.sqrt(totalDistance / stoppingDistance), 1);
             }
             t.addData("h", h);
             //set the motor powers
@@ -180,6 +180,10 @@ public class GoToPosition {
             backLeft.setPower(motorOutputs[1] * power);
             frontRight.setPower(motorOutputs[2] * power);
             backRight.setPower(motorOutputs[3] * power);
+
+            t.addData("XCoord", odometry.getXCoordinate());
+            t.addData("YCoord", odometry.getYCoordinate());
+            t.addData("Heading", odometry.getHeading());
 
             t.update();
 
