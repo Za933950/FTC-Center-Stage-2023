@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.openftc.easyopencv.OpenCvWebcam;
@@ -24,6 +26,10 @@ public class GoToPositionTest extends LinearOpMode {
     String verticalLeftEncoderName = "frontLeft";
     String verticalRightEncoderName = "frontRight";
     String horizontalEncoderName = "intakeMotor";
+    RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;
+    RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.UP;
+    RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoDirection, usbDirection);
+    IMU imu;
 
     OpenCvWebcam webcam;
     public static double XPOSITION_1 = 0;
@@ -58,7 +64,10 @@ public class GoToPositionTest extends LinearOpMode {
         horizontal.setDirection(DcMotorSimple.Direction.REVERSE);
         verticalRight.setDirection(DcMotorSimple.Direction.REVERSE);
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
-        Odometry odometry = new Odometry(verticalLeft, verticalRight, horizontal);
+        imu = hardwareMap.get(IMU.class, "imu");
+        imu.initialize(new IMU.Parameters(orientationOnRobot));
+        imu.resetYaw();
+        Odometry odometry = new Odometry(verticalLeft, verticalRight, horizontal, imu);
         Thread positionUpdate = new Thread(odometry);
 
         positionUpdate.start();

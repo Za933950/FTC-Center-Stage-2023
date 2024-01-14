@@ -48,6 +48,7 @@ public class BlueConeDetectionPipeline extends OpenCvPipeline {
         Core.inRange(input, lowerBound, upperBound, mask);
         output.release();
         Core.bitwise_and(input, input, output, mask);
+        //Imgproc.rectangle(output,new Point(0,0), new Point(319,70), new Scalar(0,0,0), Imgproc.FILLED);
         leftTopHalf = output.submat(new Rect(topLeft, bottomleft));
         rightTopHalf = output.submat(new Rect(topRight, bottomRight));
         avgLeft = Core.mean(leftTopHalf);

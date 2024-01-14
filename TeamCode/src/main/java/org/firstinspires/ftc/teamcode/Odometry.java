@@ -2,12 +2,18 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.IMU;
+
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AngularVelocity;
+import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 public class Odometry implements Runnable {
 
     private DcMotor vl;
     private DcMotor vr;
     private DcMotor h;
+    private IMU imu;
     private double vRadius = 7.5;
     private double xCoord = 0;
     private double yCoord = 0;
@@ -19,16 +25,19 @@ public class Odometry implements Runnable {
     private double circumference = 2 * vRadius * Math.PI;
     private double HCircumference = 5.375 * 2 * Math.PI; // Remeasure
 
-    public Odometry(DcMotor vl, DcMotor vr, DcMotor h) {
+    public Odometry(DcMotor vl, DcMotor vr, DcMotor h, IMU imu) {
         this.vl = vl;
         this.vr = vr;
         this.h = h;
+        this.imu =  imu;
         this.vlStart = this.vl.getCurrentPosition();
         this.vrStart = this.vr.getCurrentPosition();
         this.hStart = this.h.getCurrentPosition();
     }
 
     public void updatePosition() {
+        YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
+        AngularVelocity angularVelocity = imu.getRobotAngularVelocity(AngleUnit.DEGREES);
         // when the code updates this will allow the code to be correct to the current position
         double vlEnd = vl.getCurrentPosition();
         double vrEnd = vr.getCurrentPosition();
@@ -53,7 +62,7 @@ public class Odometry implements Runnable {
         double deltaHeading = deltaRpercent * 360;
 
         //update heading
-        heading = heading + deltaHeading;
+        heading = -orientation.getYaw(AngleUnit.DEGREES);
 
         double deltaRH = deltaHeading / 360 * HCircumference;
 

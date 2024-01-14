@@ -23,7 +23,7 @@ public class GlobalCoordinateTracking extends LinearOpMode {
     String verticalLeftEncoderName = "frontLeft";
     String verticalRightEncoderName = "frontRight";
     String horizontalEncoderName = "intakeMotor";
-        RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;
+    RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;
     RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.UP;
     RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoDirection, usbDirection);
     IMU imu;
@@ -47,7 +47,7 @@ public class GlobalCoordinateTracking extends LinearOpMode {
         horizontal.setDirection(DcMotorSimple.Direction.REVERSE);
         verticalRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        Odometry odometry = new Odometry(verticalLeft, verticalRight, horizontal);
+        Odometry odometry = new Odometry(verticalLeft, verticalRight, horizontal, imu);
 
         waitForStart();
 

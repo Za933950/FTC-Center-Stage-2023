@@ -166,7 +166,7 @@ public class CenterStage2DriverOpMode2024 extends LinearOpMode {
             //Gamepad 2
             //twitch
             if (gamepad2.left_trigger > .5) {
-                rotateServo.setPosition(.07);
+                rotateServo.setPosition(.0);
                 dropperServo.setPosition(0);
             }
 
@@ -190,13 +190,18 @@ public class CenterStage2DriverOpMode2024 extends LinearOpMode {
 
             if (gamepad2.b) {
                 slideMotor.setPower(0.6);
-                slideMotor.setTargetPosition(35);
+                slideMotor.setTargetPosition(convertDegreesToEncoderTicks(35));
                 dropperServo.setPosition(.3);
+                rotateServo.setPosition(0);
             }
 
-            if (gamepad2.x) {
+            if (gamepad2.y) {
                 slideMotor.setPower(1);
                 slideMotor.setTargetPosition(convertDegreesToEncoderTicks(1700));
+            }
+            if (gamepad2.x) {
+                slideMotor.setPower(1);
+                slideMotor.setTargetPosition(convertDegreesToEncoderTicks(1470));
             }
 
        /* if (gamepad2.dpad_right) {

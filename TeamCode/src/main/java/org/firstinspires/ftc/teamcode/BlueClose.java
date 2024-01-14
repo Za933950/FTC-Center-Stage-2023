@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -30,6 +32,10 @@ public class BlueClose extends LinearOpMode {
     String verticalLeftEncoderName = "frontLeft";
     String verticalRightEncoderName = "frontRight";
     String horizontalEncoderName = "intakeMotor";
+    RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;
+    RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.UP;
+    RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoDirection, usbDirection);
+    IMU imu;
 
     OpenCvWebcam webcam;
     public static double XPOSITION_1 = -5;
@@ -69,10 +75,18 @@ public class BlueClose extends LinearOpMode {
         horizontal.setDirection(DcMotorSimple.Direction.REVERSE);
         verticalRight.setDirection(DcMotorSimple.Direction.REVERSE);
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
-        Odometry odometry = new Odometry(verticalLeft, verticalRight, horizontal);
+        imu = hardwareMap.get(IMU.class, "imu");
+        imu.initialize(new IMU.Parameters(orientationOnRobot));
+        imu.resetYaw();
+        Odometry odometry = new Odometry(verticalLeft, verticalRight, horizontal, imu);
         Thread positionUpdate = new Thread(odometry);
 
         positionUpdate.start();
+
+        slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slideMotor.setTargetPosition(0);
+        slideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slideMotor.setPower(.75);
 
 
 
@@ -127,7 +141,7 @@ public class BlueClose extends LinearOpMode {
                     autoDrop.setPosition(.4);
                     GoToPosition.goToPosition(0, -17, 0, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
                     GoToPosition.goToPosition(37.25, -20, -90, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
-                    slideMotor.setTargetPosition(convertDegreesToEncoderTicks(1150));
+                    slideMotor.setTargetPosition(convertDegreesToEncoderTicks(1000));
                 }
                 //Center
                 if (location == 1){
@@ -148,6 +162,29 @@ public class BlueClose extends LinearOpMode {
                     slideMotor.setTargetPosition(convertDegreesToEncoderTicks(1150));
 
                 }
+            leftFront.setPower(0);
+            leftBack.setPower(0);
+            rightFront.setPower(0);
+            rightBack.setPower(0);
+            slideMotor.setTargetPosition(convertDegreesToEncoderTicks(980));
+            while (Math.abs(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(980)) > convertDegreesToEncoderTicks(20)) {
+
+            }
+            rotateServo.setPosition(.135);
+            sleep(1000);
+            dropperServo.setPosition(.0);
+            sleep(1000);
+            rotateServo.setPosition(0);
+            sleep(1000);
+            dropperServo.setPosition(.3);
+            sleep(1000);
+            rotateServo.setPosition(0);
+            sleep(1000);
+            dropperServo.setPosition(.3);
+            slideMotor.setTargetPosition(convertDegreesToEncoderTicks(0));
+            while (Math.abs(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(0)) > convertDegreesToEncoderTicks(20)) {
+
+            }
 
         }
 
