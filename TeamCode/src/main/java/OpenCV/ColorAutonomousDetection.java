@@ -30,7 +30,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-import PipeLines.RedConeDetectionPipeline;
+import org.firstinspires.ftc.teamcode.pipelines.RedConeDetectionPipeline;
 
 @Autonomous
 public class ColorAutonomousDetection extends LinearOpMode {

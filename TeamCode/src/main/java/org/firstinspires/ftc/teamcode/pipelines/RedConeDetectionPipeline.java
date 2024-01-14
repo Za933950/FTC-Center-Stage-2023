@@ -1,4 +1,4 @@
-package PipeLines;
+package org.firstinspires.ftc.teamcode.pipelines;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -39,6 +39,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
         @Override
         public Mat processFrame(Mat input) {
+
+            //Core.flip(input,input,-1);
             telemetry.addData("rows",input.rows());
             telemetry.addData("Cols", input.cols());
             telemetry.addData("location",location);

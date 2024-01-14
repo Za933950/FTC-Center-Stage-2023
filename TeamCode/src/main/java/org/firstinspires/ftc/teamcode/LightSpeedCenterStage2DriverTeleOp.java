@@ -194,7 +194,7 @@ public class LightSpeedCenterStage2DriverTeleOp extends LinearOpMode {
             }
 
             telemetry.addData("currentMotorPosition", slideMotor.getCurrentPosition());
-            telemetry.addData("E", dropperServo.getPosition());
+            telemetry.addData("dropperServoPositon", dropperServo.getPosition());
             telemetry.update();
 
 
