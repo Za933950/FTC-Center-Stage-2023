@@ -26,28 +26,14 @@ public class BlueFar extends LinearOpMode {
     private DcMotor verticalLeft, verticalRight, horizontal, leftBack, leftFront,rightFront, rightBack, slideMotor;
 
     private Servo autoDrop;
-    private Servo dropperServo, planeServo, rotateServo;
+    private Servo dropperServo, rotateServo;
 
 
     String verticalLeftEncoderName = "frontLeft";
     String verticalRightEncoderName = "frontRight";
     String horizontalEncoderName = "intakeMotor";
-    RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;
-    RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.UP;
-    RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoDirection, usbDirection);
-    IMU imu;
 
     OpenCvWebcam webcam;
-    public static double XPOSITION_1 = -5;
-    public static double YPOSITION_1 = -27;
-    public static double HEADING_1 = 0;
-    public static double STOP = 15;
-    public static double XPOSITION_2 = -5;
-    public static double YPOSITION_2 = -27;
-    public static double HEADING_2 = 0;
-    public static double XPOSITION_3 = -5;
-    public static double YPOSITION_3 = -27;
-    public static double HEADING_3 = 0;
     private double ENCODER_TICKS_PER_ROTATION = 1120 * (2.0/3);
 
 
@@ -63,7 +49,6 @@ public class BlueFar extends LinearOpMode {
         autoDrop = hardwareMap.servo.get("autoDrop");
         slideMotor = hardwareMap.dcMotor.get("slideMotor");
         dropperServo = hardwareMap.servo.get("dropper");
-        planeServo = hardwareMap.servo.get("plane");
         rotateServo = hardwareMap.servo.get("rotate");
 
 
@@ -75,10 +60,7 @@ public class BlueFar extends LinearOpMode {
         horizontal.setDirection(DcMotorSimple.Direction.REVERSE);
         verticalRight.setDirection(DcMotorSimple.Direction.REVERSE);
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
-        imu = hardwareMap.get(IMU.class, "imu");
-        imu.initialize(new IMU.Parameters(orientationOnRobot));
-        imu.resetYaw();
-        Odometry odometry = new Odometry(verticalLeft, verticalRight, horizontal, imu);
+        Odometry odometry = new Odometry(verticalLeft, verticalRight, horizontal);
         Thread positionUpdate = new Thread(odometry);
 
         positionUpdate.start();
@@ -142,27 +124,34 @@ public class BlueFar extends LinearOpMode {
                 GoToPosition.goToPosition(-2.5, -11, -27, 11, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .75);
                 GoToPosition.goToPosition(6.7, -24.7, -27, 11, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .75);
                 autoDrop.setPosition(.4);
-                GoToPosition.goToPosition(-23, -1.7, 0, 11, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .675);
-                GoToPosition.goToPosition(-21, -55, -90, 12, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
-                GoToPosition.goToPosition(50, -55, -90, 11, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
-                GoToPosition.goToPosition(85.5, -30, -90, 11, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
+                GoToPosition.goToPosition( 0, 0, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( -23, -24, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( -23, -55, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 0, -55, -88, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 60, -55, -86, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 87.5, -30, -84, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
             }
             //Center
             if (location == 1){
                 GoToPosition.goToPosition(-6, -32, 0, 11, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .75);
                 autoDrop.setPosition(.4);
-                GoToPosition.goToPosition(-23, -1.7, 0, 11, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .75);
-                GoToPosition.goToPosition(-21, -55, -90, 11, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .75);
-                GoToPosition.goToPosition(50, -55, 0, 11, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .75);
-                GoToPosition.goToPosition(85.5, -32, -90, 11, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .75);
+                GoToPosition.goToPosition( 0, 0, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( -23, -24, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( -23, -55, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 0, -55, -88, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 60, -55, -86, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 87.5, -30, -84, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
             }
             //Right
             if (location == 2){
                 GoToPosition.goToPosition(-4.5, -41.7, -180, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
                 autoDrop.setPosition(.4);
-                GoToPosition.goToPosition(-4.5, -55, -180, 11, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .75);
-                GoToPosition.goToPosition(50, -55, -180, 11, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .75);
-                GoToPosition.goToPosition(85.5, -34, -90, 11, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .75);
+                GoToPosition.goToPosition( 0, 0, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( -23, -24, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( -23, -55, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 0, -55, -88, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 60, -55, -86, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 87.5, -30, -84, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
             }
             leftFront.setPower(0);
             leftBack.setPower(0);

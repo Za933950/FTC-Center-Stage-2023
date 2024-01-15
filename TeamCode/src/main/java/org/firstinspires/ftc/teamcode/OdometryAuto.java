@@ -71,7 +71,7 @@ public class OdometryAuto extends LinearOpMode {
         imu.initialize(new IMU.Parameters(orientationOnRobot));
         imu.resetYaw();
 
-        Odometry odometry = new Odometry(leftBack, rightBack, rightFront, imu);
+        Odometry odometry = new Odometry(leftBack, rightBack, rightFront);
 
         waitForStart();
 

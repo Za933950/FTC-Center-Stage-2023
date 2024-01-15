@@ -37,10 +37,6 @@ public class RedClose extends LinearOpMode {
     String verticalLeftEncoderName = "frontLeft";
     String verticalRightEncoderName = "frontRight";
     String horizontalEncoderName = "intakeMotor";
-    RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;
-    RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.UP;
-    RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoDirection, usbDirection);
-    IMU imu;
 
     OpenCvWebcam webcam;
     public static double XPOSITION_1 = 0;
@@ -82,10 +78,7 @@ public class RedClose extends LinearOpMode {
         horizontal.setDirection(DcMotorSimple.Direction.REVERSE);
         verticalRight.setDirection(DcMotorSimple.Direction.REVERSE);
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
-        imu = hardwareMap.get(IMU.class, "imu");
-        imu.initialize(new IMU.Parameters(orientationOnRobot));
-        imu.resetYaw();
-        Odometry odometry = new Odometry(verticalLeft, verticalRight, horizontal, imu);
+        Odometry odometry = new Odometry(verticalLeft, verticalRight, horizontal);
         Thread positionUpdate = new Thread(odometry);
 
         positionUpdate.start();

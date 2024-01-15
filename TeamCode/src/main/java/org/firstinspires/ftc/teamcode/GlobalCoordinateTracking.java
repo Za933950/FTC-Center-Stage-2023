@@ -47,7 +47,7 @@ public class GlobalCoordinateTracking extends LinearOpMode {
         horizontal.setDirection(DcMotorSimple.Direction.REVERSE);
         verticalRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        Odometry odometry = new Odometry(verticalLeft, verticalRight, horizontal, imu);
+        Odometry odometry = new Odometry(verticalLeft, verticalRight, horizontal);
 
         waitForStart();
 
