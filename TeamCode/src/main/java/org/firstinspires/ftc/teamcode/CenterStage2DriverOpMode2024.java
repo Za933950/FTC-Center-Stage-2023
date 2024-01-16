@@ -69,7 +69,7 @@ public class CenterStage2DriverOpMode2024 extends LinearOpMode {
         slideMotor.setTargetPosition(convertDegreesToEncoderTicks(0));
         slideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         dropperServo.setPosition(.3);
-        planeServo.setPosition(0);
+        planeServo.setPosition(.2);
         rotateServo.setPosition(0);
 
         waitForStart();
@@ -138,10 +138,10 @@ public class CenterStage2DriverOpMode2024 extends LinearOpMode {
             }
 
             //Plane
-            if (gamepad1.a) {
-                planeServo.setPosition(.6);
-                //Put slides up a little
-            }
+          024
+
+
+                  
          /*   if (gamepad1.dpad_up) {
                 slideMotor.setTargetPosition(slideMotor.getCurrentPosition() + convertDegreesToEncoderTicks(20));
             }
@@ -197,6 +197,21 @@ public class CenterStage2DriverOpMode2024 extends LinearOpMode {
             if (gamepad2.x) {
                 slideMotor.setPower(1);
                 slideMotor.setTargetPosition(convertDegreesToEncoderTicks(1700));
+            }
+
+            if (gamepad2.left_bumper) {
+                hangServo.setPosition(0);
+            }
+            if (gamepad2.right_bumper) {
+                hangServo.setPosition(.4);
+            }
+
+            if (gamepad2.dpad_up) {
+                planeServo.setPosition(0);
+            }
+
+            if (gamepad2.dpad_down) {
+                planeServo.setPosition(0.2);
             }
 
        /* if (gamepad2.dpad_right) {
