@@ -144,35 +144,35 @@ public class RedClose extends LinearOpMode {
                 GoToPosition.goToPosition(6.7, -24.7, -27, 11, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .75);
                 autoDrop.setPosition(.4);
                 GoToPosition.goToPosition(0, -17, -27, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
-                GoToPosition.goToPosition(-37.25, -32.5, 90, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
+                GoToPosition.goToPosition(-35.5, -32.5, 92, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
             }
             //Center
             if (location == 1){
                 GoToPosition.goToPosition(-6, -30, 0, 11, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
                 autoDrop.setPosition(.4);
                 GoToPosition.goToPosition(0, -17, 0, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
-                GoToPosition.goToPosition(-37.25, -27, 90, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
+                GoToPosition.goToPosition(-36.5, -25.5, 92,10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
             }
             //Right
             if (location == 2){
                 GoToPosition.goToPosition(-14, -27, 0, 11, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
                 autoDrop.setPosition(.4);
                 GoToPosition.goToPosition(0, -17, 0, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
-                GoToPosition.goToPosition(-37.25, -21.5, 90, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
+                GoToPosition.goToPosition(-37.25, -19, 92, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
             }
             leftFront.setPower(0);
             leftBack.setPower(0);
             rightFront.setPower(0);
             rightBack.setPower(0);
-            slideMotor.setTargetPosition(convertDegreesToEncoderTicks(980));
-            while (Math.abs(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(980)) > convertDegreesToEncoderTicks(20)) {
+            slideMotor.setTargetPosition(convertDegreesToEncoderTicks(920));
+            while (Math.abs(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(920)) > convertDegreesToEncoderTicks(20) && opModeIsActive()) {
 
             }
-            rotateServo.setPosition(.135);
+            rotateServo.setPosition(.15);
             sleep(1000);
             dropperServo.setPosition(.0);
             sleep(1000);
-            rotateServo.setPosition(0);
+            rotateServo.setPosition(.08);
             sleep(1000);
             dropperServo.setPosition(.3);
             sleep(1000);
@@ -180,9 +180,10 @@ public class RedClose extends LinearOpMode {
             sleep(1000);
             dropperServo.setPosition(.3);
             slideMotor.setTargetPosition(convertDegreesToEncoderTicks(0));
-            while (Math.abs(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(0)) > convertDegreesToEncoderTicks(20)) {
+            while (Math.abs(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(0)) > convertDegreesToEncoderTicks(20) && opModeIsActive()   ) {
 
             }
+            GoToPosition.goToPosition( -86.5   , -10, 93, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
 
 
         }

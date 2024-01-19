@@ -133,7 +133,7 @@ public class BlueClose extends LinearOpMode {
                     GoToPosition.goToPosition(4, -27, 0, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
                     autoDrop.setPosition(.4);
                     GoToPosition.goToPosition(0, -17, 0, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
-                    GoToPosition.goToPosition(37.25, -20, -90, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
+                    GoToPosition.goToPosition(35, -20, -91, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
                     slideMotor.setTargetPosition(convertDegreesToEncoderTicks(1000));
                 }
                 //Center
@@ -141,7 +141,7 @@ public class BlueClose extends LinearOpMode {
                     GoToPosition.goToPosition(-4, -30, 0, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
                     autoDrop.setPosition(.4);
                     GoToPosition.goToPosition(0, -17, 0, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
-                    GoToPosition.goToPosition(37.25, -27, -90, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
+                    GoToPosition.goToPosition(36.5 , -26.5, -93, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
                     slideMotor.setTargetPosition(convertDegreesToEncoderTicks(1150));
 
                 }
@@ -151,7 +151,7 @@ public class BlueClose extends LinearOpMode {
                     GoToPosition.goToPosition(0, -29, 90, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
                     GoToPosition.goToPosition(-4.6, -29, 90, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
                     autoDrop.setPosition(.4);
-                    GoToPosition.goToPosition(37.25, -31, -90, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
+                    GoToPosition.goToPosition(37.25, -32.5, -93, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
                     slideMotor.setTargetPosition(convertDegreesToEncoderTicks(1150));
 
                 }
@@ -159,15 +159,15 @@ public class BlueClose extends LinearOpMode {
             leftBack.setPower(0);
             rightFront.setPower(0);
             rightBack.setPower(0);
-            slideMotor.setTargetPosition(convertDegreesToEncoderTicks(980));
-            while (Math.abs(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(980)) > convertDegreesToEncoderTicks(20)) {
+            slideMotor.setTargetPosition(convertDegreesToEncoderTicks(920));
+            while (Math.abs(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(920)) > convertDegreesToEncoderTicks(20) && opModeIsActive()) {
 
             }
-            rotateServo.setPosition(.135);
+            rotateServo.setPosition(.15);
             sleep(1000);
             dropperServo.setPosition(.0);
             sleep(1000);
-            rotateServo.setPosition(0);
+            rotateServo.setPosition(.08);
             sleep(1000);
             dropperServo.setPosition(.3);
             sleep(1000);
@@ -175,9 +175,10 @@ public class BlueClose extends LinearOpMode {
             sleep(1000);
             dropperServo.setPosition(.3);
             slideMotor.setTargetPosition(convertDegreesToEncoderTicks(0));
-            while (Math.abs(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(0)) > convertDegreesToEncoderTicks(20)) {
+            while (Math.abs(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(0)) > convertDegreesToEncoderTicks(20) && opModeIsActive()   ) {
 
             }
+            GoToPosition.goToPosition( -86.5   , -10, 93, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
 
         }
 

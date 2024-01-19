@@ -122,50 +122,50 @@ public class BlueFar extends LinearOpMode {
             //Left
             if (location == 0){
                 GoToPosition.goToPosition(-2.5, -11, -27, 11, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .75);
-                GoToPosition.goToPosition(6.7, -24.7, -27, 11, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .75);
+                GoToPosition.goToPosition(6.7, -25, -27, 5, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .75);
                 autoDrop.setPosition(.4);
                 GoToPosition.goToPosition( 0, 0, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
-                GoToPosition.goToPosition( -23, -24, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
-                GoToPosition.goToPosition( -23, -55, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( -19.5, -24, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( -19.5, -55, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                 GoToPosition.goToPosition( 0, -55, -88, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                 GoToPosition.goToPosition( 60, -55, -86, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
-                GoToPosition.goToPosition( 87.5, -30, -84, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 86, -28, -84, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
             }
             //Center
             if (location == 1){
                 GoToPosition.goToPosition(-6, -32, 0, 11, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .75);
                 autoDrop.setPosition(.4);
                 GoToPosition.goToPosition( 0, 0, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
-                GoToPosition.goToPosition( -23, -24, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
-                GoToPosition.goToPosition( -23, -55, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( -19.5, -24, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( -19.5, -55, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                 GoToPosition.goToPosition( 0, -55, -88, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                 GoToPosition.goToPosition( 60, -55, -86, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
-                GoToPosition.goToPosition( 87.5, -30, -84, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 86, -35.5, -84, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
             }
             //Right
             if (location == 2){
-                GoToPosition.goToPosition(-4.5, -41.7, -180, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
+                GoToPosition.goToPosition(-14.5, -27, 0, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
                 autoDrop.setPosition(.4);
                 GoToPosition.goToPosition( 0, 0, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
-                GoToPosition.goToPosition( -23, -24, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
-                GoToPosition.goToPosition( -23, -55, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( -19.5, -24, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( -19.5, -55, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                 GoToPosition.goToPosition( 0, -55, -88, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                 GoToPosition.goToPosition( 60, -55, -86, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
-                GoToPosition.goToPosition( 87.5, -30, -84, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 86   , -42, -84, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
             }
             leftFront.setPower(0);
             leftBack.setPower(0);
             rightFront.setPower(0);
             rightBack.setPower(0);
-            slideMotor.setTargetPosition(convertDegreesToEncoderTicks(980));
-            while (Math.abs(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(980)) > convertDegreesToEncoderTicks(20)) {
+            slideMotor.setTargetPosition(convertDegreesToEncoderTicks(920));
+            while (Math.abs(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(920)) > convertDegreesToEncoderTicks(20) && opModeIsActive()) {
 
             }
-            rotateServo.setPosition(.135);
+            rotateServo.setPosition(.15);
             sleep(1000);
             dropperServo.setPosition(.0);
             sleep(1000);
-            rotateServo.setPosition(0);
+            rotateServo.setPosition(.08);
             sleep(1000);
             dropperServo.setPosition(.3);
             sleep(1000);
@@ -173,9 +173,10 @@ public class BlueFar extends LinearOpMode {
             sleep(1000);
             dropperServo.setPosition(.3);
             slideMotor.setTargetPosition(convertDegreesToEncoderTicks(0));
-            while (Math.abs(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(0)) > convertDegreesToEncoderTicks(20)) {
+            while (Math.abs(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(0)) > convertDegreesToEncoderTicks(20) && opModeIsActive()   ) {
 
             }
+            GoToPosition.goToPosition( -86.5   , -10, 93, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
 
 
 

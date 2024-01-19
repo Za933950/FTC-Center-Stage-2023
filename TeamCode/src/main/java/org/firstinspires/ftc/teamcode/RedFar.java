@@ -129,27 +129,27 @@ public class RedFar extends LinearOpMode {
 
 
         if (opModeIsActive()) {
-            //Left
+            //Left  re path
             if (location == 0){
                 GoToPosition.goToPosition(4, -27, 0, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
                 autoDrop.setPosition(.4);
                 GoToPosition.goToPosition( 0, 0, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
-                GoToPosition.goToPosition( 23, -24, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
-                GoToPosition.goToPosition( 23, -55, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 19.5, -24, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 19.5, -55, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                 GoToPosition.goToPosition( 0, -55, 88, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                 GoToPosition.goToPosition( -60, -55, 86, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
-                GoToPosition.goToPosition( -87.5, -30, 84, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( -87, -30, 93, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
             }
             //Center
             if (location == 1){
-                GoToPosition.goToPosition(-1, -30, 0, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
+                GoToPosition.goToPosition(-1, -29, 0, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
                 autoDrop.setPosition(.4);
                 GoToPosition.goToPosition( 0, 0, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
-                GoToPosition.goToPosition( 23, -24, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
-                GoToPosition.goToPosition( 23, -55, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 19.5, -24, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 19.5, -55, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                 GoToPosition.goToPosition( 0, -55, 88, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                 GoToPosition.goToPosition( -60, -55, 86, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
-                GoToPosition.goToPosition( -87.5, -30, 84, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( -87, -28.5, 93, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
 
             }
             //Right
@@ -159,26 +159,26 @@ public class RedFar extends LinearOpMode {
                 GoToPosition.goToPosition(-4.6, -29, 90, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
                 autoDrop.setPosition(.4);
                 GoToPosition.goToPosition( 0, 0, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
-                GoToPosition.goToPosition( 23, -24, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
-                GoToPosition.goToPosition( 23, -55, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 19.5, -24, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 19.5, -55, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                 GoToPosition.goToPosition( 0, -55, 88, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                 GoToPosition.goToPosition( -60, -55, 86, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
-                GoToPosition.goToPosition( -87.5, -30, 84, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( -86.5   , -21.5, 93, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
 
             }
             leftFront.setPower(0);
             leftBack.setPower(0);
             rightFront.setPower(0);
             rightBack.setPower(0);
-            slideMotor.setTargetPosition(convertDegreesToEncoderTicks(980));
-            while (Math.abs(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(980)) > convertDegreesToEncoderTicks(20)) {
+            slideMotor.setTargetPosition(convertDegreesToEncoderTicks(920));
+            while (Math.abs(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(920)) > convertDegreesToEncoderTicks(20) && opModeIsActive()) {
 
             }
-            rotateServo.setPosition(.135);
+            rotateServo.setPosition(.15);
             sleep(1000);
             dropperServo.setPosition(.0);
             sleep(1000);
-            rotateServo.setPosition(0);
+            rotateServo.setPosition(.08);
             sleep(1000);
             dropperServo.setPosition(.3);
             sleep(1000);
@@ -186,9 +186,10 @@ public class RedFar extends LinearOpMode {
             sleep(1000);
             dropperServo.setPosition(.3);
             slideMotor.setTargetPosition(convertDegreesToEncoderTicks(0));
-            while (Math.abs(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(0)) > convertDegreesToEncoderTicks(20)) {
+            while (Math.abs(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(0)) > convertDegreesToEncoderTicks(20) && opModeIsActive()   ) {
 
             }
+            GoToPosition.goToPosition( -86.5   , -10, 93, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
 
         }
 
