@@ -29,13 +29,14 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import java.util.Arrays;
-
+@Disabled
 @TeleOp(name="CenterStage Two Driver OpMode", group="Linear Opmode")
 public class LightSpeedCenterStage2DriverTeleOp extends LinearOpMode {
 
@@ -196,7 +197,7 @@ public class LightSpeedCenterStage2DriverTeleOp extends LinearOpMode {
             }
 
             telemetry.addData("currentMotorPosition", slideMotor.getCurrentPosition());
-            telemetry.addData("E", dropperServo.getPosition());
+            telemetry.addData("dropperServoPositon", dropperServo.getPosition());
             telemetry.update();
 
 

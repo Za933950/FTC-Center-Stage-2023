@@ -189,6 +189,11 @@ public class GoToPosition {
 
 
         }
+        frontLeft.setPower(0);
+        backLeft.setPower(0);
+        frontRight.setPower(0);
+        backRight.setPower(0);
+
     }
 
 
