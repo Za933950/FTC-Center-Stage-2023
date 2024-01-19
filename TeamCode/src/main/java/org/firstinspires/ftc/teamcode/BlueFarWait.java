@@ -19,14 +19,14 @@ import org.openftc.easyopencv.OpenCvWebcam;
 import org.firstinspires.ftc.teamcode.pipelines.BlueConeDetectionPipeline;
 
 
-@Autonomous(name="BlueClose", group="Robot")
+@Autonomous(name="BlueFarWait", group="Robot")
 @Config
 
-public class BlueClose extends LinearOpMode {
-    private DcMotor verticalLeft, verticalRight, horizontal, leftBack, leftFront,rightFront, rightBack,slideMotor;
+public class BlueFarWait extends LinearOpMode {
+    private DcMotor verticalLeft, verticalRight, horizontal, leftBack, leftFront,rightFront, rightBack, slideMotor;
 
     private Servo autoDrop;
-    private Servo dropperServo, planeServo, rotateServo;
+    private Servo dropperServo, rotateServo;
 
 
     String verticalLeftEncoderName = "frontLeft";
@@ -34,16 +34,6 @@ public class BlueClose extends LinearOpMode {
     String horizontalEncoderName = "intakeMotor";
 
     OpenCvWebcam webcam;
-    public static double XPOSITION_1 = -5;
-    public static double YPOSITION_1 = -27;
-    public static double HEADING_1 = 0;
-    public static double STOP = 15;
-    public static double XPOSITION_2 = -5;
-    public static double YPOSITION_2 = -27;
-    public static double HEADING_2 = 0;
-    public static double XPOSITION_3 = -5;
-    public static double YPOSITION_3 = -27;
-    public static double HEADING_3 = 0;
     private double ENCODER_TICKS_PER_ROTATION = 1120 * (2.0/3);
 
 
@@ -59,7 +49,6 @@ public class BlueClose extends LinearOpMode {
         autoDrop = hardwareMap.servo.get("autoDrop");
         slideMotor = hardwareMap.dcMotor.get("slideMotor");
         dropperServo = hardwareMap.servo.get("dropper");
-        planeServo = hardwareMap.servo.get("plane");
         rotateServo = hardwareMap.servo.get("rotate");
 
 
@@ -122,39 +111,47 @@ public class BlueClose extends LinearOpMode {
         }
 
         autoDrop.setPosition(0.625);
+        dropperServo.setPosition(.3);
+        rotateServo.setPosition(0);
 
 
         waitForStart();
 
-
-        if (opModeIsActive()) {
-                //Left
-                if (location == 0){
-                    GoToPosition.goToPosition(4, -27, 0, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
-                    autoDrop.setPosition(.4);
-                    GoToPosition.goToPosition(0, -17, 0, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
-                    GoToPosition.goToPosition(35, -20, -91, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
-                    slideMotor.setTargetPosition(convertDegreesToEncoderTicks(1000));
-                }
-                //Center
-                if (location == 1){
-                    GoToPosition.goToPosition(-4, -30, 0, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
-                    autoDrop.setPosition(.4);
-                    GoToPosition.goToPosition(0, -17, 0, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
-                    GoToPosition.goToPosition(36.5 , -26.5, -93, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
-                    slideMotor.setTargetPosition(convertDegreesToEncoderTicks(1150));
-
-                }
-                //Right
-                if (location == 2){
-
-                    GoToPosition.goToPosition(0, -29, 90, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
-                    GoToPosition.goToPosition(-4.6, -29, 90, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
-                    autoDrop.setPosition(.4);
-                    GoToPosition.goToPosition(37.25, -32.5, -93, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
-                    slideMotor.setTargetPosition(convertDegreesToEncoderTicks(1150));
-
-                }
+            sleep(3000);
+            //Left
+            if (location == 0){
+                GoToPosition.goToPosition(-2.5, -11, -27, 11, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .75);
+                GoToPosition.goToPosition(6.7, -25, -27, 5, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .75);
+                autoDrop.setPosition(.4);
+                GoToPosition.goToPosition( 0, 0, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( -19.5, -24, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( -19.5, -55, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 0, -55, -88, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 60, -55, -86, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 86, -28, -84, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+            }
+            //Center
+            if (location == 1){
+                GoToPosition.goToPosition(-6, -32, 0, 11, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .75);
+                autoDrop.setPosition(.4);
+                GoToPosition.goToPosition( 0, 0, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( -19.5, -24, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( -19.5, -55, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 0, -55, -88, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 60, -55, -86, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 86, -35.5, -84, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+            }
+            //Right
+            if (location == 2){
+                GoToPosition.goToPosition(-14.5, -27, 0, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
+                autoDrop.setPosition(.4);
+                GoToPosition.goToPosition( 0, 0, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( -19.5, -24, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( -19.5, -55, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 0, -55, -88, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 60, -55, -86, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 86   , -42, -84, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+            }
             leftFront.setPower(0);
             leftBack.setPower(0);
             rightFront.setPower(0);
@@ -178,11 +175,16 @@ public class BlueClose extends LinearOpMode {
             while (Math.abs(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(0)) > convertDegreesToEncoderTicks(20) && opModeIsActive()   ) {
 
             }
-            GoToPosition.goToPosition( -35, -8, 93, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+            GoToPosition.goToPosition( -86.5   , -8, 93, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
 
-        }
+
+
+
+            telemetry.addData("dropperServoPositon", dropperServo.getPosition());
+            telemetry.update();
 
     }
+
     public int convertDegreesToEncoderTicks(double degrees) {
         return (int) (degrees / 360 * ENCODER_TICKS_PER_ROTATION);
     }

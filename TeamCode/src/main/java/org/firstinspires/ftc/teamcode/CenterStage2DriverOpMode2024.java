@@ -121,10 +121,6 @@ public class CenterStage2DriverOpMode2024 extends LinearOpMode {
                 rightFront.setPower(rightFrontPower);
                 rightBack.setPower(rightBackPower);
             }
-            //Hanging
-            if (gamepad1.b) {
-                hangServo.setPosition(0.5);
-            }
             //Intake
             if (gamepad1.right_trigger > 0.5) {
                 intakeMotor.setPower(1);
@@ -164,11 +160,6 @@ public class CenterStage2DriverOpMode2024 extends LinearOpMode {
 
 
             //Gamepad 2
-            //twitch
-            if (gamepad2.left_trigger > .5) {
-                rotateServo.setPosition(.07);
-                dropperServo.setPosition(0);
-            }
 
 
             // zero out the slides position
