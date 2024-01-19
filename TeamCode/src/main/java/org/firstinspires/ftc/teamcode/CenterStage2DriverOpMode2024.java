@@ -69,7 +69,7 @@ public class CenterStage2DriverOpMode2024 extends LinearOpMode {
         slideMotor.setTargetPosition(convertDegreesToEncoderTicks(0));
         slideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         dropperServo.setPosition(.3);
-        planeServo.setPosition(.2);
+        planeServo.setPosition(.35);
         rotateServo.setPosition(0);
 
         waitForStart();
@@ -182,7 +182,7 @@ public class CenterStage2DriverOpMode2024 extends LinearOpMode {
             }
 
 
-            if (slideMotor.getCurrentPosition() >= convertDegreesToEncoderTicks(500)) {
+            if (slideMotor.getCurrentPosition() >= convertDegreesToEncoderTicks(650)) {
                 rotateServo.setPosition(.125);
             } else {
                 rotateServo.setPosition(0);
