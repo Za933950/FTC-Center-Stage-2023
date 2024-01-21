@@ -147,10 +147,10 @@ public class RedClose extends LinearOpMode {
             }
             //Center
             if (location == 1){
-                GoToPosition.goToPosition(-6, -30, 0, 6, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
+                GoToPosition.goToPosition(-6, -30.5, 0, 6, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
                 autoDrop.setPosition(.4);
                 GoToPosition.goToPosition(0, -17, 0, 6, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
-                GoToPosition.goToPosition(-36.5, -25.5, 92,6, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
+                GoToPosition.goToPosition(-36.5, -26.5, 92,6, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
             }
             //Right
             if (location == 2){
@@ -163,8 +163,8 @@ public class RedClose extends LinearOpMode {
             leftBack.setPower(0);
             rightFront.setPower(0);
             rightBack.setPower(0);
-            slideMotor.setTargetPosition(convertDegreesToEncoderTicks(920));
-            while (Math.abs(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(920)) > convertDegreesToEncoderTicks(20) && opModeIsActive()) {
+            slideMotor.setTargetPosition(convertDegreesToEncoderTicks(860));
+            while (Math.abs(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(860)) > convertDegreesToEncoderTicks(20) && opModeIsActive()) {
 
             }
             rotateServo.setPosition(.15);

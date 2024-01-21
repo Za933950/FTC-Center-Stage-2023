@@ -175,7 +175,7 @@ public class BlueFarWait extends LinearOpMode {
             while (Math.abs(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(0)) > convertDegreesToEncoderTicks(20) && opModeIsActive()   ) {
 
             }
-            GoToPosition.goToPosition( -86.5   , -8, 93, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+            GoToPosition.goToPosition( 84   , -8, -93, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
 
 
 

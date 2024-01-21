@@ -128,11 +128,11 @@ public class RedFar extends LinearOpMode {
         waitForStart();
 
 
-            //Left  re path
+            //Left
             if (location == 0){
                 GoToPosition.goToPosition(4, -27, 0, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
                 autoDrop.setPosition(.4);
-                GoToPosition.goToPosition( 0, 0, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 0, -2, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                 GoToPosition.goToPosition( -6.5, -55, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                 GoToPosition.goToPosition( 0, -55, 88, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                 GoToPosition.goToPosition( -60, -55, 86, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
@@ -140,14 +140,14 @@ public class RedFar extends LinearOpMode {
             }
             //Center
             if (location == 1){
-                GoToPosition.goToPosition(-1, -29, 0, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
+                GoToPosition.goToPosition(-1, -30.5, 0, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                 autoDrop.setPosition(.4);
-                GoToPosition.goToPosition( 0, 0, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 0, -2, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                 GoToPosition.goToPosition( 16, -24, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                 GoToPosition.goToPosition( 16, -55, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                 GoToPosition.goToPosition( 0, -55, 88, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                 GoToPosition.goToPosition( -60, -55, 86, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
-                GoToPosition.goToPosition( -88, -31, 93, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( -89, -30, 93, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
 
             }
             //Right
@@ -156,7 +156,7 @@ public class RedFar extends LinearOpMode {
                 GoToPosition.goToPosition(0, -29, 90, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
                 GoToPosition.goToPosition(-4.6, -29, 90, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
                 autoDrop.setPosition(.4);
-                GoToPosition.goToPosition( 0, 0, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                GoToPosition.goToPosition( 0, -2, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                 GoToPosition.goToPosition( 1, -55, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                 GoToPosition.goToPosition( 0, -55, 88, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                 GoToPosition.goToPosition( -60, -55, 86, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
@@ -167,8 +167,8 @@ public class RedFar extends LinearOpMode {
             leftBack.setPower(0);
             rightFront.setPower(0);
             rightBack.setPower(0);
-            slideMotor.setTargetPosition(convertDegreesToEncoderTicks(920));
-            while (Math.abs(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(920)) > convertDegreesToEncoderTicks(20) && opModeIsActive()) {
+            slideMotor.setTargetPosition(convertDegreesToEncoderTicks(860));
+            while (Math.abs(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(860)) > convertDegreesToEncoderTicks(20) && opModeIsActive()) {
 
             }
             rotateServo.setPosition(.15);

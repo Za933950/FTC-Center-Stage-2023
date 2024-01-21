@@ -130,28 +130,28 @@ public class BlueClose extends LinearOpMode {
         if (opModeIsActive()) {
                 //Left
                 if (location == 0){
-                    GoToPosition.goToPosition(4, -27, 0, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
+                    GoToPosition.goToPosition(4, -27, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                     autoDrop.setPosition(.4);
-                    GoToPosition.goToPosition(0, -17, 0, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
-                    GoToPosition.goToPosition(35, -20, -91, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
+                    GoToPosition.goToPosition(0, -17, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                    GoToPosition.goToPosition(32.75, -20, -91, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                     slideMotor.setTargetPosition(convertDegreesToEncoderTicks(1000));
                 }
                 //Center
                 if (location == 1){
-                    GoToPosition.goToPosition(-4, -30, 0, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
+                    GoToPosition.goToPosition(-4, -30, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                     autoDrop.setPosition(.4);
-                    GoToPosition.goToPosition(0, -17, 0, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
-                    GoToPosition.goToPosition(36.5 , -26.5, -93, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
+                    GoToPosition.goToPosition(0, -17, 0, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                    GoToPosition.goToPosition(35.5 , -28, -93, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                     slideMotor.setTargetPosition(convertDegreesToEncoderTicks(1150));
 
                 }
                 //Right
                 if (location == 2){
 
-                    GoToPosition.goToPosition(0, -29, 90, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
-                    GoToPosition.goToPosition(-4.6, -29, 90, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
+                    GoToPosition.goToPosition(0, -29, 90, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+                    GoToPosition.goToPosition(-4.6, -29, 90, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                     autoDrop.setPosition(.4);
-                    GoToPosition.goToPosition(37.25, -32.5, -93, 10, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .6);
+                    GoToPosition.goToPosition(37.25, -32.5, -93, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
                     slideMotor.setTargetPosition(convertDegreesToEncoderTicks(1150));
 
                 }
@@ -159,8 +159,8 @@ public class BlueClose extends LinearOpMode {
             leftBack.setPower(0);
             rightFront.setPower(0);
             rightBack.setPower(0);
-            slideMotor.setTargetPosition(convertDegreesToEncoderTicks(920));
-            while (Math.abs(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(920)) > convertDegreesToEncoderTicks(20) && opModeIsActive()) {
+            slideMotor.setTargetPosition(convertDegreesToEncoderTicks(860));
+            while (Math.abs(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(860)) > convertDegreesToEncoderTicks(20) && opModeIsActive()) {
 
             }
             rotateServo.setPosition(.15);
@@ -178,7 +178,7 @@ public class BlueClose extends LinearOpMode {
             while (Math.abs(slideMotor.getCurrentPosition() - convertDegreesToEncoderTicks(0)) > convertDegreesToEncoderTicks(20) && opModeIsActive()   ) {
 
             }
-            GoToPosition.goToPosition( -35, -8, 93, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
+            GoToPosition.goToPosition( 30, -8, -93, 3, odometry, leftFront, leftBack, rightFront, rightBack, telemetry, .45);
 
         }
 
