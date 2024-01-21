@@ -99,6 +99,7 @@ public class GoToPosition {
 
     public static void goToPosition(double x, double y, double heading, double stoppingDistance, Odometry odometry, DcMotor frontLeft, DcMotor backLeft, DcMotor frontRight, DcMotor backRight, Telemetry t, double power) {
         //stop
+        long start = System.currentTimeMillis();
         double currentX = odometry.getXCoordinate();
         double currentY = odometry.getYCoordinate();
         double currentHeading = odometry.getHeading();
@@ -110,7 +111,7 @@ public class GoToPosition {
         double outputTheta = differenceInHeading / 360.0 * DIAMETER * Math.PI;
         double h = Math.pow(Math.pow(differenceInX, 2) + Math.pow(differenceInY, 2), 1.0 / 2);
         double totalDistance = h + Math.abs(outputTheta);
-        while (totalDistance > .7) {
+        while (totalDistance > .7 && System.currentTimeMillis()-start < 5000) {
             t.addData("TD", totalDistance);
             //get starting position
             currentX = odometry.getXCoordinate();

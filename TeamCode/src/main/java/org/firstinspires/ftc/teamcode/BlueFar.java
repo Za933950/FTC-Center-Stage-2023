@@ -118,6 +118,9 @@ public class BlueFar extends LinearOpMode {
         waitForStart();
 
 
+
+
+
         if (opModeIsActive()) {
             //Left
             if (location == 0){
